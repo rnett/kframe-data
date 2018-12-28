@@ -30,9 +30,9 @@ apply plugin: 'org.jetbrains.kotlin.frontend'
 
 apply plugin: 'kotlinx-serialization'
 
-group "com.rnett.kframe-data"
+group "com.github.rnett.kframe-data"
 
-version "1.0.0"
+version "1.0.0a"
 
 repositories {
     mavenCentral()
