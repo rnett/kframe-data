@@ -32,7 +32,7 @@ apply plugin: 'kotlinx-serialization'
 
 group "com.github.rnett.kframe-data"
 
-version "1.0.0a"
+version "-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -101,26 +101,7 @@ compileKotlinJs {
     kotlinOptions.sourceMapEmbedSources = "always"
     kotlinOptions.moduleKind = "amd"
 }
-/*
-task assembleWeb(type: Sync) {
-    configurations.compile.each { File file ->
-        from(zipTree(file.absolutePath), {
-            includeEmptyDirs = false
-            include { fileTreeElement ->
-                def path = fileTreeElement.path
-                path.endsWith(".js") && (path.startsWith("META-INF/resources/") ||
-                        !path.startsWith("META-INF/"))
-            }
-        })
-    }
-    from compileKotlinJs.destinationDir
-    into "$buildDir/$web_dir"
 
-    dependsOn classes
-}
-
-assemble.dependsOn assembleWeb
-*/
 kotlinFrontend {
     downloadNodeJsVersion = "latest"
 }
