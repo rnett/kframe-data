@@ -17,6 +17,24 @@ sealed class Endpoint<R : Any>(val method: KFunction<R>) {
     fun serializeResult(res: R) = CBOR.dumps(resultSerializer ?: EndpointManager.getSerializer(), res)
 }
 
+data class Endpoint0<R : Any>(
+    val method1: KFunction<R>,
+    override val resultSerializer: KSerializer<R>?
+) : Endpoint<R>(method1) {
+    fun serializeParams() = listOf<String>()
+
+    override fun serializeParams(params: List<Any>): List<String> = serializeParams()
+
+    fun deserializeParams() = listOf<Any>()
+
+    override fun deserializeParams(params: List<String>): List<Any> = deserializeParams()
+}
+
+fun <R : Any> EndpointManager.addEndpoint(
+    method: KFunction<R>,
+    resultSerializer: KSerializer<R>? = null
+) = addEndpoint(Endpoint0(method, resultSerializer))
+
 data class Endpoint1<R : Any, T1 : Any>(
     val method1: KFunction<R>,
     val param1Serializer: KSerializer<T1>?,
