@@ -9,6 +9,10 @@ object EndpointManager {
 
     var serverUrl = ""
 
+    var allowOnlyInDataTransferBLock = false
+
+    internal var inDataTransfer = false
+
     private val _endpoints = mutableMapOf<KFunction<*>, Int>()
 
     val endpoints: Map<KFunction<*>, Int> get() = _endpoints.toMap()
@@ -38,3 +42,12 @@ object EndpointManager {
 
 @Serializable
 data class EndpointData(val params: List<String>, val endpointId: Int)
+
+fun <T> dataTransfer(block: () -> T): T {
+    EndpointManager.inDataTransfer = true
+    val temp = block()
+    EndpointManager.inDataTransfer = false
+
+    return temp
+}
+

@@ -30,6 +30,10 @@ fun <R> callEndpoint(
     params: List<Any>,
     timeout: Long = 10000
 ): R {
+
+    if (EndpointManager.allowOnlyInDataTransferBLock && !EndpointManager.inDataTransfer)
+        throw IllegalArgumentException("Transfer not allowed when not in dataTransfer block (see EndpointManager.allowOnlyInDataTransferBLock")
+
     val endpointId =
         EndpointManager.endpoints[endpoint] ?: throw IllegalArgumentException("Endpoint unknown for function")
     val end =
