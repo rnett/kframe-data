@@ -43,11 +43,4 @@ object EndpointManager {
 @Serializable
 data class EndpointData(val params: List<String>, val endpointId: Int)
 
-fun <T> dataTransfer(block: () -> T): T {
-    EndpointManager.inDataTransfer = true
-    val temp = block()
-    EndpointManager.inDataTransfer = false
-
-    return temp
-}
 
